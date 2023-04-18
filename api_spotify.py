@@ -7,6 +7,7 @@ import json
 client_id = os.environ.get('SPOTIFY_API_KEY')
 client_secret = os.environ.get('SPOTIFY_SECRET')
 
+
 token_url = "https://accounts.spotify.com/api/token"
 token_data = {
     "grant_type": "client_credentials"

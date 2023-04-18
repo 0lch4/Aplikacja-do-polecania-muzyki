@@ -30,3 +30,5 @@ model = tf.keras.models.Sequential([
 model.compile(optimizer='adam', loss='mean_squared_error')
 
 model.fit(X_norm, Y, epochs=100, batch_size=16)
+
+model.save('podobienstwo_piosenek.h5')

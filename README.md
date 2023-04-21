@@ -6,7 +6,7 @@ Opis:
 Znajduje piosenkę o podobnym brzmieniu na podstawie takich danych jak tempo nastrój energia itd
 polecenie_muzyki to główna aplikacja która uruchamia trzy mniejsze
 
-Aplikacja pobranie_piosneki pobiera od użytkownika nazwę oraz autora piosenki i zapisuje informacje o piosence do pliku wynik2.json
+Aplikacja pobranie_piosneki pobiera od użytkownika nazwę oraz autora piosenki a nastęnie pobiera ze spotify i zapisuje informacje o piosence do pliku wynik2.json
 
 Aplikacja AI to prosta sieć neuronowa która pobiera parametry z wynik2.json, przetwarza dane i zapisuje do pliku wynik3.json dane piosenki która według niej jest podobna do pobranej
 

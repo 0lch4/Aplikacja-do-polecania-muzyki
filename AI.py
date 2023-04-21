@@ -21,9 +21,9 @@ max_vals -= 0.001
 X_norm = ((X - min_vals) / (max_vals - min_vals)) * (b - a) + a
 
 model = tf.keras.models.Sequential([
-    tf.keras.layers.Dense(128, activation='relu', input_shape=(5,)),
+    tf.keras.layers.Dense(256, activation='relu', input_shape=(5,)),
+    tf.keras.layers.Dense(128, activation='relu'),
     tf.keras.layers.Dense(64, activation='relu'),
-    tf.keras.layers.Dense(32, activation='relu'),
     tf.keras.layers.Dense(5, activation='linear')
 ])
 

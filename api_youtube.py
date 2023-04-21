@@ -4,7 +4,7 @@ import html
 import os
 
 # podaj tutaj swoja zmienna srodowiskowa ktora przechowuje api yt
-api_key = os.environ.get('YouTube_API_KEY')
+api_key = os.environ.get('YouTube_api_key')
 
 url = 'https://www.googleapis.com/youtube/v3/search'
 

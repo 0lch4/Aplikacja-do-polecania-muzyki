@@ -4,8 +4,8 @@ import base64
 import json
 
 # wpisz tutaj zmienne srodowiskowe ktore przechowuja id klienta i sekret na api spotify
-client_id = os.environ.get('SPOTIFY_API_KEY')
-client_secret = os.environ.get('SPOTIFY_SECRET')
+client_id = os.environ.get('Spotify_client_id')
+client_secret = os.environ.get('Spotify_client_secret')
 
 
 token_url = "https://accounts.spotify.com/api/token"

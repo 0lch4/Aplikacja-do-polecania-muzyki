@@ -1,3 +1,5 @@
+#nie ma zwiazku z reszta zrobilem testowo
+
 import requests
 import json
 import html

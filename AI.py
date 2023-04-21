@@ -29,6 +29,24 @@ model = tf.keras.models.Sequential([
 
 model.compile(optimizer='adam', loss='mean_squared_error')
 
-model.fit(X_norm, Y, epochs=100, batch_size=16)
+model.fit(X_norm, Y, epochs=10, batch_size=16)
 
 model.save('podobienstwo_piosenek.h5')
+
+results = []
+for i in range(len(X)):
+    prediction = model.predict(X_norm[i].reshape(1, 5))
+    results.append(prediction.tolist()[0])
+
+
+results_dict = {
+    "tempo": round(np.mean([result[0] for result in results]), 3),
+    "valence": round(np.mean([result[1] for result in results]), 3),
+    "loudness": round(np.mean([result[2] for result in results]), 3),
+    "energy": round(np.mean([result[3] for result in results]), 3),
+    "time_signature": int(round(np.mean([result[4] for result in results]), 0))
+}
+
+
+with open('wynik3.json', 'w') as f:
+    json.dump(results_dict, f)

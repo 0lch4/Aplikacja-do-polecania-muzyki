@@ -10,11 +10,9 @@ client_secret = os.environ.get('Spotify_client_secret')
 
 token_url = "https://accounts.spotify.com/api/token"
 token_data = {
-    "grant_type": "client_credentials"
-}
+    "grant_type": "client_credentials"}
 token_headers = {
-    "Authorization": f"Basic {base64.b64encode((client_id + ':' + client_secret).encode('ascii')).decode('ascii')}"
-}
+    "Authorization": f"Basic {base64.b64encode((client_id + ':' + client_secret).encode('ascii')).decode('ascii')}"}
 response = requests.post(token_url, data=token_data, headers=token_headers)
 
 if response.status_code == 200:
@@ -27,8 +25,7 @@ if response.status_code == 200:
     search_url = f"https://api.spotify.com/v1/search?q={query}&type=track&limit=1"
     headers = {
         "Authorization": f"Bearer {access_token}",
-        "Content-Type": "application/json"
-    }
+        "Content-Type": "application/json"}
     response = requests.get(search_url, headers=headers)
 
     if response.status_code == 200:

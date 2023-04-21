@@ -18,8 +18,11 @@ Podany gatunek nie musi się równać gatunkowi piosenki którą podaliśmy wcze
 wymagane biblioteki:
 
 pip install requests
+
 pip inatall numpy
+
 pip install tensorflow
+
 pip install pybase64
 
 Na początku plików pobrane_piosenki oraz zwrócenie_piosenki należy w poniższych liniach podać swoje id i secret do api spotify w tych liniach:

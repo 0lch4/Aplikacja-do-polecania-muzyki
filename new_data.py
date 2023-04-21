@@ -14,10 +14,16 @@ token_headers = {
     "Authorization": f"Basic {base64.b64encode((client_id + ':' + client_secret).encode('ascii')).decode('ascii')}"}
 
 response = requests.post(token_url, data=token_data, headers=token_headers)
-
+print("Oto dostępne gatunki:")
+with open('gatunki.txt') as f:
+    for i in f:
+        print(i)
+print("To juz wszystkie dostępne gatunki")
+genre = input("Podaj nazwę gatunku jaki cie interesuje: ")
+genre = genre.lower()
 if response.status_code == 200:
     access_token = response.json()['access_token']
-    with open('wynik2.json') as f:
+    with open('wynik3.json') as f:
         new_data = json.load(f)
        
     tempo = new_data['tempo']
@@ -31,14 +37,20 @@ if response.status_code == 200:
             "Content-Type": "application/json"}
 
     params = {
-        'q': f'tempo:{tempo} AND loudness:{loudness} AND valence:{valence} AND energy:{energy} AND time_signature:{time_signature}',
-        'type': 'track',
-        'limit': 1  }
+        'limit': 1,
+        'market': 'PL',
+        'seed_genres': genre,
+        'target_tempo': tempo,
+        'target_loudness': loudness,
+        'target_valence': valence,
+        'target_energy': energy,
+        'target_time_signature': time_signature,
+        'type': 'track'
+    }
     
-    response = requests.get("https://api.spotify.com/v1/", headers=headers, params=params,verify=True)
-    print(response.url)
+    response = requests.get("https://api.spotify.com/v1/recommendations", headers=headers, params=params, verify=True)
     if response.status_code == 200:
-        results = response.json()['tracks']['items']
+        results = response.json()["tracks"]
         if len(results) == 0:
             print("Nie znaleziono utworów dla podanych parametrów wyszukiwania.")
         else:
@@ -48,4 +60,4 @@ if response.status_code == 200:
                 print(f"Link do utworu: {track['external_urls']['spotify']}")
     else:
         print(f"Nie udało się uzyskać wyników wyszukiwania. Kod statusu: {response.status_code}")
-print(response.json())
+        

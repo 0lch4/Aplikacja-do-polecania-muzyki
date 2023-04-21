@@ -21,7 +21,6 @@ if response.status_code == 200:
     title = input("Podaj tytuł piosenki: ")
     artist = input("Podaj wykonawcę: ")
     query = f"track:{title} artist:{artist}"
-    query = f"track:{title}"
     search_url = f"https://api.spotify.com/v1/search?q={query}&type=track&limit=1"
     headers = {
         "Authorization": f"Bearer {access_token}",
@@ -60,3 +59,4 @@ if response.status_code == 200:
         print(f"Błąd {response.status_code}: {response.reason}")
 else:
     print(f"Błąd {response.status_code}: {response.reason}")
+

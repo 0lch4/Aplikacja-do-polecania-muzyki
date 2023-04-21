@@ -14,13 +14,44 @@ token_data = {
 token_headers = {
     "Authorization": f"Basic {base64.b64encode((client_id + ':' + client_secret).encode('ascii')).decode('ascii')}"
 }
-response = requests.post(token_url, data=token_data, headers=token_headers)
 
-with open('wynik2.json') as f:
-    new_data = f.read()
+response = requests.post(token_url, data=token_data, headers=token_headers)
 
 if response.status_code == 200:
     access_token = response.json()['access_token']
-    query =
-    search_url = 'https://api.spotify.com/v1/audio-analysis/11dFghVXANMlKmJXsNCbNl'
+    with open('wynik2.json') as f:
+        new_data = json.load(f)
     
+    query = new_data
+    tempo = query['tempo']
+    loudness = query['loudness']
+    valence = query['valence']
+    energy = query['energy']
+    time_signature = query['time_signature']
+
+    headers = {
+            "Authorization": f"Bearer {access_token}",
+            "Content-Type": "application/json"}
+
+    params = {
+        'q': f'tempo:{tempo} AND loudness:{loudness} AND valence:{valence} AND energy:{energy} AND time_signature:{time_signature}',
+        'type': 'track',
+        'limit': 10
+    }
+    
+    response = requests.get("https://api.spotify.com/v1/search", headers=headers, params=params, verify=True)
+    print(response.url)
+    
+    if response.status_code == 200:
+        results = response.json()['tracks']['items']
+        if len(results) == 0:
+            print("Nie znaleziono utworów dla podanych parametrów wyszukiwania.")
+        else:
+            for track in results:
+                print(f"Utwór: {track['name']}")
+                print(f"Wykonawca: {track['artists'][0]['name']}")
+                print(f"Id utworu: {track['id']}")
+                print(f"Link do utworu: {track['external_urls']['spotify']}")
+    else:
+        print(f"Nie udało się uzyskać wyników wyszukiwania. Kod statusu: {response.status_code}")
+        print(response.json())

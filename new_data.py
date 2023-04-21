@@ -18,9 +18,11 @@ print("Oto dostępne gatunki:")
 with open('gatunki.txt') as f:
     for i in f:
         print(i)
-print("To juz wszystkie dostępne gatunki")
+print("To wszystkie dostępne gatunki")
 genre = input("Podaj nazwę gatunku jaki cie interesuje: ")
 genre = genre.lower()
+
+
 if response.status_code == 200:
     access_token = response.json()['access_token']
     with open('wynik3.json') as f:
@@ -31,6 +33,7 @@ if response.status_code == 200:
     valence = new_data['valence']
     energy = new_data['energy']
     time_signature = new_data['time_signature']
+    mode = new_data['mode']
 
     headers = {
             "Authorization": f"Bearer {access_token}",
@@ -45,6 +48,7 @@ if response.status_code == 200:
         'target_valence': valence,
         'target_energy': energy,
         'target_time_signature': time_signature,
+        'mode': mode,
         'type': 'track'
     }
     

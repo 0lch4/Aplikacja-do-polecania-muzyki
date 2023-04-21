@@ -1,7 +1,10 @@
 import json
 import numpy as np
 import tensorflow as tf
+import time 
 
+print("Im więcej będziesz mnie używać tym wyniki bedą lepsze :)")
+time.sleep(0.5)
 with open('wynik2.json') as f:
     data = json.load(f)
 
@@ -44,7 +47,8 @@ results_dict = {
     "valence": round(np.mean([result[1] for result in results]), 3),
     "loudness": round(np.mean([result[2] for result in results]), 3),
     "energy": round(np.mean([result[3] for result in results]), 3),
-    "time_signature": int(round(np.mean([result[4] for result in results]), 0))
+    "time_signature": int(round(np.mean([result[4] for result in results]), 0)),
+    "mode": data['mode']
 }
 
 

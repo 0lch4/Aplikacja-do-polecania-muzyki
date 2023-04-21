@@ -41,21 +41,8 @@ if response.status_code == 200:
                     data = response.json()
                     with open('wynik2.json', 'w', encoding='utf-8') as f:
                         json.dump({'tempo': data['tempo'], 'valence': data['valence'], 'loudness': data['loudness'], 'energy': data['energy'],
-                                  'time_signature': data['time_signature'], 'mode': data['mode'] }, f, indent=2, ensure_ascii=False)
-
-                    if response.status_code == 200:
-                        data = response.json()
-                        print(f"Cechy piosenki '{title}':")
-                        print(f"Tempo: {data['tempo']}")
-                        print(f"Nastroj: {data['valence']}")
-                        print(f"Ogólna głośność: {data['loudness']}")
-                        print(f"time_signature: {data['time_signature']}")
-                        print(f"Energia: {data['energy']}")
-                        print(f"Mode: {data['mode']}")
-                        break
-                    else:
-                        print(f"Błąd {response.status_code}: {response.reason}")
-                        break
+                                  'time_signature': data['time_signature'], 'mode': data['mode'],'key':data['key'] }, f, indent=2, ensure_ascii=False)
+                    break
                 else:
                     print(f"Błąd {response.status_code}: {response.reason}")
                     break

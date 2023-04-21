@@ -48,7 +48,8 @@ results_dict = {
     "loudness": round(np.mean([result[2] for result in results]), 3),
     "energy": round(np.mean([result[3] for result in results]), 3),
     "time_signature": int(round(np.mean([result[4] for result in results]), 0)),
-    "mode": data['mode']
+    "mode": data['mode'],
+    "key": data['key']
 }
 
 

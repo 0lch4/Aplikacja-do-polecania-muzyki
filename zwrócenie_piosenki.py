@@ -22,7 +22,6 @@ print("To wszystkie dostępne gatunki")
 genre = input("Podaj nazwę gatunku jaki cie interesuje: ")
 genre = genre.lower()
 
-
 if response.status_code == 200:
     access_token = response.json()['access_token']
     with open('wynik3.json') as f:
@@ -34,6 +33,7 @@ if response.status_code == 200:
     energy = new_data['energy']
     time_signature = new_data['time_signature']
     mode = new_data['mode']
+    key = new_data['key']
 
     headers = {
             "Authorization": f"Bearer {access_token}",
@@ -49,6 +49,7 @@ if response.status_code == 200:
         'target_energy': energy,
         'target_time_signature': time_signature,
         'mode': mode,
+        'key': key,
         'type': 'track'
     }
     

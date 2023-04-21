@@ -34,6 +34,8 @@ if response.status_code == 200:
     time_signature = new_data['time_signature']
     mode = new_data['mode']
     key = new_data['key']
+    danceability=new_data['danceability']
+    speechiness=new_data['speechiness']
 
     headers = {
             "Authorization": f"Bearer {access_token}",
@@ -50,6 +52,8 @@ if response.status_code == 200:
         'target_time_signature': time_signature,
         'mode': mode,
         'key': key,
+        'danceability':danceability,
+        'speechiness':speechiness,
         'type': 'track'
     }
     

@@ -41,7 +41,7 @@ if response.status_code == 200:
                     data = response.json()
                     with open('wynik2.json', 'w', encoding='utf-8') as f:
                         json.dump({'tempo': data['tempo'], 'valence': data['valence'], 'loudness': data['loudness'], 'energy': data['energy'],
-                                  'time_signature': data['time_signature'], 'mode': data['mode'],'key':data['key'] }, f, indent=2, ensure_ascii=False)
+                                  'time_signature': data['time_signature'], 'mode': data['mode'],'key':data['key'],'danceability':data['danceability'],'speechiness':data['speechiness'] }, f, indent=2, ensure_ascii=False)
                     break
                 else:
                     print(f"Błąd {response.status_code}: {response.reason}")

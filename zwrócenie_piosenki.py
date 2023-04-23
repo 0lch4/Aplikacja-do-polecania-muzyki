@@ -36,14 +36,17 @@ if response.status_code == 200:
     key = new_data['key']
     danceability=new_data['danceability']
     speechiness=new_data['speechiness']
+    instrumentalness=new_data['instrumentalness']
+    popularity=new_data['popularity']
 
     headers = {
             "Authorization": f"Bearer {access_token}",
             "Content-Type": "application/json"}
 
     params = {
-        'limit': 1,
+        'limit': 3,
         'market': 'PL',
+        'q': 'lang:pl',
         'seed_genres': genre,
         'target_tempo': tempo,
         'target_loudness': loudness,
@@ -54,7 +57,9 @@ if response.status_code == 200:
         'key': key,
         'danceability':danceability,
         'speechiness':speechiness,
-        'type': 'track'
+        'instrumentalness':instrumentalness,
+        'popularity':popularity,
+        'type': 'track',
     }
     
     response = requests.get("https://api.spotify.com/v1/recommendations", headers=headers, params=params, verify=True)
@@ -63,10 +68,13 @@ if response.status_code == 200:
         if len(results) == 0:
             print("Nie znaleziono utworów dla podanych parametrów wyszukiwania.")
         else:
+            i=1
             for track in results:
+                print(f"\nMiejsce {i}")
                 print(f"Utwór: {track['name']}")
                 print(f"Wykonawca: {track['artists'][0]['name']}")
                 print(f"Link do utworu: {track['external_urls']['spotify']}")
+                i+=1
     else:
         print(f"Nie udało się uzyskać wyników wyszukiwania. Kod statusu: {response.status_code}")
         

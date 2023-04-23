@@ -35,13 +35,17 @@ if response.status_code == 200:
             else:
                 track_id = data['tracks']['items'][0]['id']
                 features_url = f"https://api.spotify.com/v1/audio-features/{track_id}"
+                popularity_url = f"https://api.spotify.com/v1/tracks/{track_id}"
                 response = requests.get(features_url, headers=headers)
+                popularity_response = requests.get(popularity_url, headers=headers)
 
-                if response.status_code == 200:
+                if response.status_code == 200 and popularity_response.status_code == 200:
                     data = response.json()
+                    popularity_data = popularity_response.json()
                     with open('wynik2.json', 'w', encoding='utf-8') as f:
                         json.dump({'tempo': data['tempo'], 'valence': data['valence'], 'loudness': data['loudness'], 'energy': data['energy'],
-                                  'time_signature': data['time_signature'], 'mode': data['mode'],'key':data['key'],'danceability':data['danceability'],'speechiness':data['speechiness'] }, f, indent=2, ensure_ascii=False)
+                                'time_signature': data['time_signature'], 'mode': data['mode'], 'key': data['key'], 'danceability': data['danceability'],
+                                'speechiness': data['speechiness'], 'instrumentalness': data['instrumentalness'], 'popularity': popularity_data['popularity']}, f, indent=2, ensure_ascii=False)
                     break
                 else:
                     print(f"Błąd {response.status_code}: {response.reason}")

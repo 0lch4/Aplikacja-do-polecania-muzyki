@@ -7,15 +7,17 @@ print("Im więcej będziesz mnie używać tym wyniki bedą lepsze :)")
 time.sleep(0.5)
 with open('wynik2.json') as f:
     data = json.load(f)
+    
+model = tf.keras.models.load_model('podobienstwo_piosenek.h5')
 
 X = np.array([[data['tempo'], data['valence'], data['loudness'],
-             data['energy'], data['time_signature'],data['danceability'],data['speechiness']] for i in range(len(data))])
+             data['energy'], data['time_signature'],data['danceability'],data['speechiness'],data['mode'],data['key'],data['instrumentalness'],data['popularity']] for i in range(len(data))])
 Y = X.copy()
 
 min_vals = np.array([[data['tempo']-5, data['valence']-0.1, data['loudness']-1,
-                    data['energy']-0.1, data['time_signature'],data['danceability']-0.1,data['speechiness']-0.05] for i in range(len(data))])
+                    data['energy']-0.1, data['time_signature'],data['danceability']-0.1,data['speechiness']-0.05,data['mode']-0,data['key']-0,data['instrumentalness']-0.01,data['popularity']-1] for i in range(len(data))])
 max_vals = np.array([[data['tempo']+5, data['valence']+0.1, data['loudness']+1,
-                    data['energy']+0.1, data['time_signature'],data['danceability']+0.1,data['speechiness']+0.05] for i in range(len(data))])
+                    data['energy']+0.1, data['time_signature'],data['danceability']+0.1,data['speechiness']+0.05,data['mode']+0,data['key']+0,data['instrumentalness']+0.01,data['popularity']+1] for i in range(len(data))])
 
 a = 0
 b = 1
@@ -24,21 +26,21 @@ max_vals -= 0.001
 X_norm = ((X - min_vals) / (max_vals - min_vals)) * (b - a) + a
 
 model = tf.keras.models.Sequential([
-    tf.keras.layers.Dense(256, activation='relu', input_shape=(7,)),
+    tf.keras.layers.Dense(256, activation='relu', input_shape=(11,)),
     tf.keras.layers.Dense(128, activation='relu'),
     tf.keras.layers.Dense(64, activation='relu'),
-    tf.keras.layers.Dense(7, activation='linear')
+    tf.keras.layers.Dense(11, activation='linear')
 ])
 
 model.compile(optimizer='adam', loss='mean_squared_error')
 
-model.fit(X_norm, Y, epochs=140, batch_size=16)
+model.fit(X_norm, Y, epochs=120, batch_size=16)
 
 model.save('podobienstwo_piosenek.h5')
 
 results = []
 for i in range(len(X)):
-    prediction = model.predict(X_norm[i].reshape(1, 7))
+    prediction = model.predict(X_norm[i].reshape(1, 11))
     results.append(prediction.tolist()[0])
 
 
@@ -50,10 +52,12 @@ results_dict = {
     "time_signature": int(round(np.mean([result[4] for result in results]), 0)),
     "danceability": int(round(np.mean([result[5] for result in results]), 0)),
     "speechiness": int(round(np.mean([result[6] for result in results]), 0)),
-    "mode": data['mode'],
-    "key": data['key']
+    "mode": int(round(np.mean([result[7] for result in results]), 0)),
+    "key": int(round(np.mean([result[8] for result in results]), 0)),
+    "instrumentalness": int(round(np.mean([result[9] for result in results]), 0)),
+    "popularity": int(round(np.mean([result[10] for result in results]), 0)),
 }
 
 
 with open('wynik3.json', 'w') as f:
-    json.dump(results_dict, f)
+    json.dump(results_dict, f, indent=2, ensure_ascii=False)

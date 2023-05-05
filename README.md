@@ -2,6 +2,12 @@
 
 Interface in Polish lang
 
+instalacja bibliotek:
+
+pip install -r requirements.txt
+
+Wymagane api keye znajdują się w pliku .env.example należy utworzyć plik .env i podać tam swoje klucze według wzoru
+
 Opis:
 Znajduje piosenkę o podobnym brzmieniu na podstawie takich danych jak tempo nastrój energia itd
 polecenie_muzyki to główna aplikacja która uruchamia trzy mniejsze
@@ -16,20 +22,3 @@ Podany gatunek nie musi się równać gatunkowi piosenki którą podaliśmy wcze
 
 Testy zawiera test który sprawdza czy gatunki na liscie gatunki.txt rzeczywiście istnieją na spotify. Jeśli brakuje tam twojego ulubionego można go dopisać a następnie uruchomić test.
 
-wymagane biblioteki:
-
-pip install requests
-
-pip inatall numpy
-
-pip install tensorflow
-
-pip install pybase64
-pip install pytest
-
-Na początku plików pobrane_piosenki oraz zwrócenie_piosenki należy w poniższych liniach podać swoje id i secret do api spotify w tych liniach:
-
-client_id = os.environ.get('Spotify_client_id')
-client_secret = os.environ.get('Spotify_client_secret')
-
-w moim przypadku są to zmienne środowiskowe, można podać po = sam klucz.

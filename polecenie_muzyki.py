@@ -1,4 +1,5 @@
 import subprocess
+#uruchamia wszystkie programy po sobie
 
 subprocess.call(["python", "pobranie_piosenki.py"])
 

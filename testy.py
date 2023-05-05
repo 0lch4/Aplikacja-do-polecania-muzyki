@@ -2,10 +2,11 @@ import os
 import requests
 import base64
 import pytest
+from dotenv import load_dotenv
 
-# wpisz tutaj zmienne srodowiskowe ktore przechowuja id klienta i sekret na api spotify
-client_id = os.environ.get('Spotify_client_id')
-client_secret = os.environ.get('Spotify_client_secret')
+load_dotenv()
+client_id = os.getenv('SPOTIFY_ID')
+client_secret = os.getenv('SPOTIFY_SECRET')
 
 token_url = "https://accounts.spotify.com/api/token"
 token_data = {

@@ -9,7 +9,7 @@ time.sleep(0.5)
 with open('results.json') as f:
     data = json.load(f)
 #wczytuje siec neuronowa
-model = tf.keras.models.load_model('podobienstwo_piosenek.h5')
+model = tf.keras.models.load_model('neural_network.h5')
 #dane wejsciowe
 X = np.array([[data['tempo'], data['valence'], data['loudness'],
              data['energy'], data['time_signature'],data['danceability'],data['speechiness'],data['mode'],data['key'],data['instrumentalness'],data['popularity']] for i in range(len(data))])
@@ -40,7 +40,7 @@ model.compile(optimizer='adam', loss='mean_squared_error')
 model.fit(X_norm, Y, epochs=120, batch_size=16)
 
 #nadpisanie modelu po kolejnej przetworzonej piosence dzieki temu uczy sie z kazdym uzyciem
-model.save('podobienstwo_piosenek.h5')
+model.save('neural_network.h5')
 #wyciagniecie i zapisanie nowych danych piosenki
 results = []
 for i in range(len(X)):

@@ -1,3 +1,5 @@
 wynik2.json
 wynik3.json
 .env
+__pycache__
+.pytest_cache

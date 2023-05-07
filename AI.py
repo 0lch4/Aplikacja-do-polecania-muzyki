@@ -6,7 +6,7 @@ import time
 print("Im więcej będziesz mnie używać tym wyniki bedą lepsze :)")
 time.sleep(0.5)
 #pobiera dane z pliku json
-with open('wynik2.json') as f:
+with open('results.json') as f:
     data = json.load(f)
 #wczytuje siec neuronowa
 model = tf.keras.models.load_model('podobienstwo_piosenek.h5')
@@ -62,5 +62,5 @@ results_dict = {
     "popularity": int(round(np.mean([result[10] for result in results]), 0)),
 }
 
-with open('wynik3.json', 'w') as f:
+with open('results2.json', 'w') as f:
     json.dump(results_dict, f, indent=2, ensure_ascii=False)

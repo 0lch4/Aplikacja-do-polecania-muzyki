@@ -45,7 +45,7 @@ if response.status_code == 200:
                 if response.status_code == 200 and popularity_response.status_code == 200:
                     data = response.json()
                     popularity_data = popularity_response.json()
-                    with open('wynik2.json', 'w', encoding='utf-8') as f:
+                    with open('results.json', 'w', encoding='utf-8') as f:
                         json.dump({'tempo': data['tempo'], 'valence': data['valence'], 'loudness': data['loudness'], 'energy': data['energy'],
                                 'time_signature': data['time_signature'], 'mode': data['mode'], 'key': data['key'], 'danceability': data['danceability'],
                                 'speechiness': data['speechiness'], 'instrumentalness': data['instrumentalness'], 'popularity': popularity_data['popularity']}, f, indent=2, ensure_ascii=False)

@@ -18,7 +18,7 @@ token_headers = {
 #wczytuje dostepne gatunki i pokazuje uzytkownikowi, nastepnie pyta ktory chce wybrac
 response = requests.post(token_url, data=token_data, headers=token_headers)
 print("Oto dostępne gatunki:")
-with open('gatunki.txt') as f:
+with open('genres.txt') as f:
     for i in f:
         print(i)
 print("To wszystkie dostępne gatunki")
@@ -28,7 +28,7 @@ genre = genre.lower()
 #wczytuje nowe dane utworu
 if response.status_code == 200:
     access_token = response.json()['access_token']
-    with open('wynik3.json') as f:
+    with open('results2.json') as f:
         new_data = json.load(f)
     #przypisuje wlasciwosci piosenki do zmiennych   
     tempo = new_data['tempo']

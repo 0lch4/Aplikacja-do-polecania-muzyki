@@ -1,13 +1,13 @@
 {
-  "tempo": 98.633,
-  "valence": 0.237,
-  "loudness": -8.999,
-  "energy": 0.776,
-  "time_signature": 4,
+  "tempo": 82.333,
+  "valence": 0.492,
+  "loudness": -4.986,
+  "energy": 0.781,
+  "time_signature": 5,
   "danceability": 1,
   "speechiness": 0,
   "mode": 0,
-  "key": 6,
+  "key": 10,
   "instrumentalness": 0,
-  "popularity": 49
+  "popularity": 47
 }

@@ -1,5 +1,5 @@
-wynik2.json
-wynik3.json
+results.json
+results2.json
 .env
 __pycache__
 .pytest_cache

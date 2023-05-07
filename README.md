@@ -29,8 +29,6 @@ Aby zbudować obraz Docker zakładając, że Dockerfile znajduje się z resztą 
 
 docker build -t main .
 
-gdzie main można zmienić według własnych preferencji
-
 Następnie aby uruchomić kontener:
 
 docker run -it --env-file .env main

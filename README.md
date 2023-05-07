@@ -21,4 +21,19 @@ Aplikacja new_parameters pobiera dane z pliku wynik3.json, prosi użytkownika o 
 Podany gatunek nie musi się równać gatunkowi piosenki którą podaliśmy wcześniej! Jeśli podamy inny gatunek to dostaniemy piosenkę brzmiącą podobnie do orginału w tym gatunku który podaliśmy na koniec.
 
 Tests zawiera test który sprawdza czy gatunki na liscie gatunki.txt rzeczywiście istnieją na spotify. Jeśli brakuje tam twojego ulubionego można go dopisać a następnie uruchomić test.
+  
+
+Aby zbudować obraz Docker zakładając, że Dockerfile znajduje się z resztą plików jak w repozytorium należy wpisać:
+
+docker build -t main .
+
+gdzie main można zmienić według własnych preferencji
+
+Następnie aby uruchomić kontener:
+
+docker run -it --env-file .env main
+
+Zakładając, że w pliku .env są prawidłowe wartości i znajduje się z resztą plików jak w repozytorium plik .env.example
+
+flaga -it pozwoli na wprowadzanie danych z konsoli w ktorej kontener zostanie uruchomiony 
 

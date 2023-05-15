@@ -37,5 +37,5 @@ def get_song(title,artist):
         else: 
             return "Nie ma takiego utworu na spotify"
     else:
-        return "Błąd polaczenia"
+        return "Blad polaczenia"
         

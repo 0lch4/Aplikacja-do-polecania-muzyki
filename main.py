@@ -26,7 +26,7 @@ a uzytkownik powiadomiony co zrobil zle"""
 @app.post("/submit", response_class=HTMLResponse)
 async def submit_form(request: Request, song: str = Form(None), artist: str=Form(None)):
     if song is None or artist is None:
-        text = "Musisz wprowadzić obie wartości"
+        text = "Musisz wprowadzic obie wartosci"
         return templates.TemplateResponse("main.html", {"request": request, "text":text})
     else:
         error = get_song(song,artist)

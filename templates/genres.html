@@ -11,29 +11,7 @@
                 <input type="hidden" id="clickedGenre" name="genre">
             </form>
         </div>
-        <script>
-            fetch('/genre')
-                .then(response => response.json())
-                .then(data => {
-                    const genreButtonsDiv = document.getElementById('genreButtons');
-                    data.forEach(genre => {
-                        const button = document.createElement('input');
-                        button.type = 'submit';
-                        button.name = 'genre';
-                        button.value = genre;
-                        genreButtonsDiv.appendChild(button);
-                        button.addEventListener('click', function(event) {
-                            event.preventDefault(); 
-
-                            const clickedGenre = genre;
-                            const clickedGenreInput = document.getElementById('clickedGenre');
-                            clickedGenreInput.value = clickedGenre;
-                            const form = document.getElementById('form');
-                            form.submit();
-                        });
-                    });
-                });
-        </script>
+        <script src="../static/scripts/script.js"></script> 
         <a href="/">Chce wpisać inną piosenkę</a>
     </body>
 </html>

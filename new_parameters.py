@@ -2,12 +2,9 @@ import requests
 import json
 from conn import conn
 
-response=conn()
-
-
-
 def new_song(genre):
 #wczytuje nowe dane utworu
+    response=conn()
     genre = genre.lower()
     if response.status_code == 200:
         access_token = response.json()['access_token']

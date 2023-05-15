@@ -35,6 +35,5 @@ async def get_genres():
 
 @app.post("/genre", response_class=HTMLResponse)
 async def submit_genres(request: Request,genre: str = Form(...)):
-    genre_name = genre
-    print(genre_name)
-    return templates.TemplateResponse("result.html",{"request": request})
+    results = new_song(genre)
+    return templates.TemplateResponse("result.html",{"request": request, "results": results})

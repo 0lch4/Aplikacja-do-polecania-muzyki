@@ -1,6 +1,6 @@
 # Aplikacja-do-polecania-muzyki
 
-![GitHub forks](https://img.shields.io/badge/Version-1.0.1-red)
+![GitHub forks](https://img.shields.io/badge/Version-2.0-red)
 
 Interface in Polish lang
 

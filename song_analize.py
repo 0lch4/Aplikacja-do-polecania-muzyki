@@ -1,28 +1,13 @@
 import requests
-import base64
 import json
-import os
-from dotenv import load_dotenv
+from conn import conn
 
-load_dotenv()
-client_id = os.getenv('SPOTIFY_ID')
-client_secret = os.getenv('SPOTIFY_SECRET')
-
-#polaczenie ze spotify
-token_url = "https://accounts.spotify.com/api/token"
-token_data = {
-    "grant_type": "client_credentials"}
-token_headers = {
-    "Authorization": f"Basic {base64.b64encode((client_id + ':' + client_secret).encode('ascii')).decode('ascii')}"}
-response = requests.post(token_url, data=token_data, headers=token_headers)
-
-#pyta uzytkownika o utwor ktorego nazwa jest wysylana w żądaniu
-if response.status_code == 200:
-    access_token = response.json()['access_token']
-    print("Witaj :) podaj mi utwor a podam ci inny o podobnym brzmieniu")
-    while True:
-        title = input("Podaj tytuł piosenki: ")
-        artist = input("Podaj wykonawcę: ")
+#pyta uzytkownika o utwor ktorego nazwa jest wysylana w żądaniu, w przypadku bledu informuje o tym co jest nie tak
+def get_song(title,artist):
+    response=conn()
+    if response.status_code == 200:
+        access_token = response.json()['access_token']
+        
         query = f"track:{title} artist:{artist}"
         search_url = f"https://api.spotify.com/v1/search?q={query}&type=track&limit=1"
         headers = {
@@ -33,7 +18,7 @@ if response.status_code == 200:
         if response.status_code == 200:
             data = response.json()
             if len(data['tracks']['items']) == 0:
-                print("Nie widze takiego utworu spróbuj jeszcze raz :)")
+                return "Nie ma takiego utworu na spotify"
             else:
                 #wysyla żądanie o dane utworu
                 track_id = data['tracks']['items'][0]['id']
@@ -42,19 +27,15 @@ if response.status_code == 200:
                 response = requests.get(features_url, headers=headers)
                 popularity_response = requests.get(popularity_url, headers=headers)
                 #pobiera właściwości piosenki i zapisuje do pliku wynik2.json
-                if response.status_code == 200 and popularity_response.status_code == 200:
-                    data = response.json()
-                    popularity_data = popularity_response.json()
-                    with open('results.json', 'w', encoding='utf-8') as f:
-                        json.dump({'tempo': data['tempo'], 'valence': data['valence'], 'loudness': data['loudness'], 'energy': data['energy'],
-                                'time_signature': data['time_signature'], 'mode': data['mode'], 'key': data['key'], 'danceability': data['danceability'],
-                                'speechiness': data['speechiness'], 'instrumentalness': data['instrumentalness'], 'popularity': popularity_data['popularity']}, f, indent=2, ensure_ascii=False)
-                    break
-                else:
-                    print(f"Błąd {response.status_code}: {response.reason}")
-                    break
-        else:
-            print(f"Błąd {response.status_code}: {response.reason}")
-            break
-else:
-    print(f"Błąd {response.status_code}: {response.reason}")
+                data = response.json()
+                popularity_data = popularity_response.json()
+                with open('results.json', 'w', encoding='utf-8') as f:
+                    json.dump({'tempo': data['tempo'], 'valence': data['valence'], 'loudness': data['loudness'], 'energy': data['energy'],
+                            'time_signature': data['time_signature'], 'mode': data['mode'], 'key': data['key'], 'danceability': data['danceability'],
+                            'speechiness': data['speechiness'], 'instrumentalness': data['instrumentalness'], 'popularity': popularity_data['popularity']}, f, indent=2, ensure_ascii=False)
+    
+        else: 
+            return "Nie ma takiego utworu na spotify"
+    else:
+        return "Błąd polaczenia"
+        

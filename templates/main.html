@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Aplikacja do polecania muzyki</title>
+    </head>
+    <body>
+        <form id ='form' action="/submit" method="post">
+            <p>{{error}}</p>
+            <p>{{text}}</p>
+            <label for="songs">Witaj podaj mi utwor a podam ci inny o podobnym brzmieniu</label><br>
+            <label for="songs">Tutaj wpisz tytuł</label><br>
+            <input type="text" id="song" name="song"><br>
+            <label for="songs">Tutaj wpisz wykonawce</label><br>
+            <input type="text" id="artist" name="artist"><br>
+            <input type="submit" value="przeslij">
+        </form>
+    </body>
+</html>

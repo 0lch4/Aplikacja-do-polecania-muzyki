@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Aplikacja do polecania muzyki</title>
+    </head>
+    <body>
+        <div id='result'>
+            <h2>wybierz gatunki jakie cie interesuja</h2>
+            <form id='form' action="/genre" method="post" autocomplete="off">
+                <div id="genreButtons"></div>
+                <input type="hidden" id="clickedGenre" name="genre">
+            </form>
+        </div>
+        <script>
+            fetch('/genre')
+                .then(response => response.json())
+                .then(data => {
+                    const genreButtonsDiv = document.getElementById('genreButtons');
+                    data.forEach(genre => {
+                        const button = document.createElement('input');
+                        button.type = 'submit';
+                        button.name = 'genre';
+                        button.value = genre;
+                        genreButtonsDiv.appendChild(button);
+                        button.addEventListener('click', function(event) {
+                            event.preventDefault(); 
+
+                            const clickedGenre = genre;
+                            const clickedGenreInput = document.getElementById('clickedGenre');
+                            clickedGenreInput.value = clickedGenre;
+                            const form = document.getElementById('form');
+                            form.submit();
+                        });
+                    });
+                });
+        </script>
+        <a href="/">Chce wpisać inną piosenkę</a>
+    </body>
+</html>

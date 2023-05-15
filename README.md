@@ -1,6 +1,6 @@
 # Aplikacja-do-polecania-muzyki
 
-![GitHub forks](https://img.shields.io/badge/Version-2.0-red)
+![GitHub forks](https://img.shields.io/badge/Version-2.1-red)
 
 Interface in Polish lang
 
@@ -25,7 +25,7 @@ Plik conn.py służy do łączenia się z API Spotify, gdy potrzebuje się poł�
 
 Folder templates zawiera widoki html. Aktualnie są proste i będą zmodyfikowane, na początku skupiłem się na backendzie.
 
-Folder static zawiera pliki statyczne, są tam style, grafika i czcionka.
+Folder static zawiera pliki statyczne, są tam style, grafika, javascript i czcionka.
 
 Podany gatunek nie musi się równać gatunkowi piosenki którą podaliśmy wcześniej! Jeśli podamy inny gatunek to dostaniemy piosenkę brzmiącą podobnie do orginału w tym gatunku który podaliśmy na koniec.
 

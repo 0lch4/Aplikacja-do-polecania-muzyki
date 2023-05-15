@@ -2,12 +2,14 @@
 <html>
     <head>
         <title>Aplikacja do polecania muzyki</title>
-        <link rel="stylesheet" href="{{ url_for('static', path='/css/form.css') }}">
     </head>
     <body>
         <form id ='form' action="/submit" method="post">
             <label for="songs">Witaj podaj mi utwor a podam ci inny o podobnym brzmieniu</label><br>
-            <input type="text" id="songs" name="songs"><br>
+            <label for="songs">Tutaj wpisz tytuł</label><br>
+            <input type="text" id="song" name="song"><br>
+            <label for="songs">Tutaj wpisz wykonawce</label><br>
+            <input type="text" id="artist" name="artist"><br>
             <input type="submit" value="przeslij">
         </form>
     </body>

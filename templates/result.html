@@ -24,6 +24,10 @@
             <p>Wykonawca <span class="arial-font">{{ results[2]['artists'][0]['name'] }}</p>
             <p><a href="{{ results[2]['external_urls']['spotify'] }}" target="_blank">Link do utworu</a></p>
         </div>    
-            <a href="/" id ='link'>Chce wybrac inna piosenke</a>
+        <script src="../static/scripts/back.js"></script> <br>
+        <div id="link">
+            <a href="/">Chce wybrac inna piosenke</a><br>
+            <a href="#" onclick="goBack()">Sproboj innego gatunku</a>
+        </div>
     </body>
 </html>

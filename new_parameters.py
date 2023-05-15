@@ -49,19 +49,11 @@ def new_song(genre):
         response = requests.get("https://api.spotify.com/v1/recommendations", headers=headers, params=params, verify=True)
         if response.status_code == 200:
             results = response.json()["tracks"]
-            #sprawdza czy taka piosenka istnieje
             if len(results) == 0:
-                print("Nie znaleziono utworów dla podanych parametrów wyszukiwania.")
-            else:
-                i=1
-                #wyswietla wyniki
-                for track in results:
-                    print(f"\nMiejsce {i}")
-                    print(f"Utwór: {track['name']}")
-                    print(f"Wykonawca: {track['artists'][0]['name']}")
-                    print(f"Link do utworu: {track['external_urls']['spotify']}")
-                    i+=1
+                return "Nie znaleziono utworów o podanych parametrach"
         else:
-            print(f"Nie udało się uzyskać wyników wyszukiwania. Kod statusu: {response.status_code}")
-            
+            return "Błąd połączenia"
+    else: 
+        return "Błąd połączenia"      
+    
     return results

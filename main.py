@@ -21,17 +21,24 @@ async def show_form(request: Request):
     return templates.TemplateResponse("main.html", {"request": request})
 
 @app.post("/submit", response_class=HTMLResponse)
-async def submit_form(request: Request, song: str = Form(...), artist: str=Form(...)):
-    get_song(song,artist)
-    neural()
-    return templates.TemplateResponse("genres.html", {"request": request, "song": song, "artist":artist})
- 
-@app.get("/genres")
+async def submit_form(request: Request, song: str = Form(None), artist: str=Form(None)):
+    if song is None or artist is None:
+        text = "Musisz wprowadzić obie wartości"
+        return templates.TemplateResponse("main.html", {"request": request, "text":text})
+    else:
+        error = get_song(song,artist)
+        if error==None:
+            neural()
+            return templates.TemplateResponse("genres.html", {"request": request, "song": song, "artist":artist})
+        else:
+            return templates.TemplateResponse("main.html", {"request": request, "error": error})
+            
+
+@app.get("/genre")
 async def get_genres():
     with open('genres.txt', 'r') as f:
         genres = f.read().splitlines()
     return JSONResponse(content=genres)
-
 
 @app.post("/genre", response_class=HTMLResponse)
 async def submit_genres(request: Request,genre: str = Form(...)):

@@ -42,3 +42,7 @@ docker run -d --name app -p 80:80 --env-file .env app
 Zakładając, że w pliku .env są prawidłowe wartości i znajduje się z resztą plików jak w repozytorium plik .env.example
 
 Teraz pod adresem http://127.0.0.1/ aplikacja jest dostępna w naszej przeglądarce
+
+![screen1](screenshots/screen1.png)
+![screen2](screenshots/screen2.png)
+![screen3](screenshots/screen3.png)

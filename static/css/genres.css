@@ -18,7 +18,7 @@ input[type=submit] {
     text-align: center;
     background-color: green;
     scale: 100%;
-    margin-left: 1.62%;
+    margin-left: 1.6%;
 
       }
 
@@ -27,7 +27,6 @@ h2 {
     }
 
 a {
-    background-color: black;
     margin-top: 10%;
     display: block;
     text-align: center;
@@ -35,3 +34,7 @@ a {
     margin-left: 37%;
     margin-right: 37%;
 }
+
+a:visited {
+    color: blue;
+  }

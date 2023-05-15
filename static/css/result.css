@@ -61,3 +61,7 @@ p{
 #back{
     text-align: center;
 }
+
+a:visited {
+    color: blue;
+  }

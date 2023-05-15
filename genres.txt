@@ -52,6 +52,7 @@ house
 indie
 jazz
 metal
+pop
 power-pop
 punk
 punk-rock

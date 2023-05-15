@@ -23,13 +23,13 @@ Aplikacja new_parameters pobiera dane z pliku wynik3.json, prosi użytkownika o 
 
 Plik conn.py służy do łączenia się z API Spotify, gdy potrzebuje się połączyć ze Spotify to go importuje zamiast pisać w kółko to samo.
 
-Folder templates zawiera widoki html.
+Folder templates zawiera widoki html. Aktualnie są proste i będą zmodyfikowane, na początku skupiłem się na backendzie.
 
-Folder Static zawiera pliki statyczne, są tam style, grafika i czcionka.
+Folder static zawiera pliki statyczne, są tam style, grafika i czcionka.
 
 Podany gatunek nie musi się równać gatunkowi piosenki którą podaliśmy wcześniej! Jeśli podamy inny gatunek to dostaniemy piosenkę brzmiącą podobnie do orginału w tym gatunku który podaliśmy na koniec.
 
-Tests zawiera test który sprawdza czy gatunki na liscie gatunki.txt rzeczywiście istnieją na spotify. Jeśli brakuje tam twojego ulubionego można go dopisać a następnie uruchomić test.
+Tests zawiera test który sprawdza czy gatunki na liscie gatunki.txt rzeczywiście istnieją na spotify. Jeśli brakuje tam twojego ulubionego można go dopisać a następnie uruchomić test. Oprócz tego są tam testy, które sprawdzają poprawne działanie endpointów
   
 Aby zbudować obraz Docker zakładając, że Dockerfile znajduje się z resztą plików jak w repozytorium należy wpisać:
 

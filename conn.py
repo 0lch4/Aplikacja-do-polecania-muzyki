@@ -2,6 +2,7 @@ import base64
 import requests
 import os
 from dotenv import load_dotenv
+#polaczenie z api spotify
 def conn():
     load_dotenv()
     client_id = os.getenv('SPOTIFY_ID')

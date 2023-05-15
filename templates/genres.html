@@ -6,7 +6,6 @@
     <body>
         <div id='result'>
             <h2>wybierz gatunki jakie cie interesuja</h2>
-            <a href="/">Chce wpisać inną piosenkę</a>
             <form id='form' action="/genre" method="post" autocomplete="off">
                 <div id="genreButtons"></div>
                 <input type="hidden" id="clickedGenre" name="genre">
@@ -23,21 +22,18 @@
                         button.name = 'genre';
                         button.value = genre;
                         genreButtonsDiv.appendChild(button);
-
                         button.addEventListener('click', function(event) {
                             event.preventDefault(); 
 
                             const clickedGenre = genre;
-                            console.log('Kliknięty gatunek:', clickedGenre);
-
                             const clickedGenreInput = document.getElementById('clickedGenre');
                             clickedGenreInput.value = clickedGenre;
-
                             const form = document.getElementById('form');
                             form.submit();
                         });
                     });
                 });
         </script>
+        <a href="/">Chce wpisać inną piosenkę</a>
     </body>
 </html>

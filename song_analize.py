@@ -2,8 +2,7 @@ import requests
 import json
 from conn import conn
 
-
-#pyta uzytkownika o utwor ktorego nazwa jest wysylana w żądaniu
+#pyta uzytkownika o utwor ktorego nazwa jest wysylana w żądaniu, w przypadku bledu informuje o tym co jest nie tak
 def get_song(title,artist):
     response=conn()
     if response.status_code == 200:

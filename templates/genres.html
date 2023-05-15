@@ -2,16 +2,17 @@
 <html>
     <head>
         <title>Aplikacja do polecania muzyki</title>
+        <link rel="stylesheet" href="{{ url_for('static', path='/css/genres.css') }}">
     </head>
     <body>
         <div id='result'>
-            <h2>wybierz gatunki jakie cie interesuja</h2>
+            <h2>wybierz gatunek jaki cie interesuje</h2>
             <form id='form' action="/genre" method="post" autocomplete="off">
                 <div id="genreButtons"></div>
                 <input type="hidden" id="clickedGenre" name="genre">
             </form>
         </div>
-        <script src="../static/scripts/script.js"></script> 
-        <a href="/">Chce wpisać inną piosenkę</a>
+        <script src="../static/scripts/script.js"></script> <br>
+        <a href="/">Chce wpisac inna piosenke</a>
     </body>
 </html>

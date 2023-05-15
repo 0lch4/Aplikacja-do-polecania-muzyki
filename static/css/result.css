@@ -1,0 +1,57 @@
+@font-face {
+    font-family: 'Music-font';
+    src: url('../font/Caribbean.ttf');
+  }
+
+body {
+    background-image: url('../images/background6.jpg');
+    background-size: 100vw 100vh;
+    background-repeat: no-repeat;
+    color: green;
+    font-family: 'Music-font';
+    font-size: 2vw;
+    -webkit-text-stroke: 0.1px black;}
+
+
+h2 {
+    text-align: center;
+    }
+
+h4{
+    text-align: center;
+}
+
+p{
+    text-align: center;
+    -webkit-text-stroke: 0.1px black;
+}
+
+#first_place{
+    clear: both;
+}
+
+#second_place{
+    float: left;
+
+}
+
+#third_place{
+    float: right;
+
+}
+
+#link{
+    float: center;
+    margin-top: 10%;
+    display: block;
+    text-align: center;
+    font-size: 1.6vw;
+    margin-left: 37%;
+    margin-right: 37%;
+}
+
+.arial-font {
+    font-family: Arial, sans-serif;
+    -webkit-text-stroke: 1px black;
+    
+}

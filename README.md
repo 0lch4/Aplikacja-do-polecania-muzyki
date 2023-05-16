@@ -23,7 +23,7 @@ Aplikacja new_parameters pobiera dane z pliku results2.json, prosi użytkownika 
 
 Plik conn.py służy do łączenia się z API Spotify, gdy potrzebuje się połączyć ze Spotify to go importuje zamiast pisać w kółko to samo.
 
-Folder templates zawiera widoki html. Aktualnie są proste i będą zmodyfikowane, na początku skupiłem się na backendzie.
+Folder templates zawiera widoki html.
 
 Folder static zawiera pliki statyczne, są tam style, grafika, javascript i czcionka.
 

@@ -2,7 +2,7 @@
 
 ![GitHub forks](https://img.shields.io/badge/Version-2.1-red)
 
-Interface in Polish lang
+App interface and Readme in main branch are in Polish lang, to English version select branch eng-version
 
 instalacja bibliotek:
 

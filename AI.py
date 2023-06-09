@@ -2,49 +2,93 @@ import json
 import numpy as np
 import tensorflow as tf
 
-def neural():
-    #pobiera dane z pliku json
-    with open('results.json') as f:
+
+def neural() -> None:
+    # pobiera dane z pliku json
+    with open("results.json") as f:
         data = json.load(f)
-    #wczytuje siec neuronowa
-    model = tf.keras.models.load_model('neural_network.h5')
-    #dane wejsciowe
-    X = np.array([[data['tempo'], data['valence'], data['loudness'],
-                data['energy'], data['time_signature'],data['danceability'],data['speechiness'],data['mode'],data['key'],data['instrumentalness'],data['popularity']] for i in range(len(data))])
-    #dane wyjsciowe maja byc zblizone do wejsciowych
-    Y = X.copy()
-    #minimalna i maksymalna roznica wartosci
-    min_vals = np.array([[data['tempo']-5, data['valence']-0.1, data['loudness']-1,
-                        data['energy']-0.1, data['time_signature'],data['danceability']-0.1,data['speechiness']-0.05,data['mode']-0,data['key']-0,data['instrumentalness']-0.01,data['popularity']-1] for i in range(len(data))])
-    max_vals = np.array([[data['tempo']+5, data['valence']+0.1, data['loudness']+1,
-                        data['energy']+0.1, data['time_signature'],data['danceability']+0.1,data['speechiness']+0.05,data['mode']+0,data['key']+0,data['instrumentalness']+0.01,data['popularity']+1] for i in range(len(data))])
-    #normalizacja danych
+    model = tf.keras.models.load_model("neural_network.h5")
+    # dane wejsciowe
+    x = np.array(
+        [
+            [
+                data["tempo"],
+                data["valence"],
+                data["loudness"],
+                data["energy"],
+                data["time_signature"],
+                data["danceability"],
+                data["speechiness"],
+                data["mode"],
+                data["key"],
+                data["instrumentalness"],
+                data["popularity"],
+            ]
+            for i in range(len(data))
+        ]
+    )
+    # dane wyjsciowe maja byc zblizone do wejsciowych
+    y = x.copy()
+    # minimalna i maksymalna roznica wartosci
+    min_vals = np.array(
+        [
+            [
+                data["tempo"] - 5,
+                data["valence"] - 0.1,
+                data["loudness"] - 1,
+                data["energy"] - 0.1,
+                data["time_signature"],
+                data["danceability"] - 0.1,
+                data["speechiness"] - 0.05,
+                data["mode"] - 0,
+                data["key"] - 0,
+                data["instrumentalness"] - 0.01,
+                data["popularity"] - 1,
+            ]
+            for i in range(len(data))
+        ]
+    )
+    max_vals = np.array(
+        [
+            [
+                data["tempo"] + 5,
+                data["valence"] + 0.1,
+                data["loudness"] + 1,
+                data["energy"] + 0.1,
+                data["time_signature"],
+                data["danceability"] + 0.1,
+                data["speechiness"] + 0.05,
+                data["mode"] + 0,
+                data["key"] + 0,
+                data["instrumentalness"] + 0.01,
+                data["popularity"] + 1,
+            ]
+            for i in range(len(data))
+        ]
+    )
+    # normalizacja danych
     a = 0
     b = 1
     min_vals += 0.001
     max_vals -= 0.001
-    X_norm = ((X - min_vals) / (max_vals - min_vals)) * (b - a) + a
+    x_norm = ((x - min_vals) / (max_vals - min_vals)) * (b - a) + a
+    model = tf.keras.models.Sequential(
+        [
+            tf.keras.layers.Dense(256, activation="relu", input_shape=(11,)),
+            tf.keras.layers.Dense(128, activation="relu"),
+            tf.keras.layers.Dense(64, activation="relu"),
+            tf.keras.layers.Dense(11, activation="linear"),
+        ]
+    )
+    model.compile(optimizer="adam", loss="mean_squared_error")
+    model.fit(x_norm, y, epochs=120, batch_size=16)
 
-    #przetwarzanie danych i trening na nowych danych
-    model = tf.keras.models.Sequential([
-        tf.keras.layers.Dense(256, activation='relu', input_shape=(11,)),
-        tf.keras.layers.Dense(128, activation='relu'),
-        tf.keras.layers.Dense(64, activation='relu'),
-        tf.keras.layers.Dense(11, activation='linear')
-    ])
-
-    model.compile(optimizer='adam', loss='mean_squared_error')
-
-    model.fit(X_norm, Y, epochs=120, batch_size=16)
-
-    #nadpisanie modelu po kolejnej przetworzonej piosence dzieki temu uczy sie z kazdym uzyciem
-    model.save('neural_network.h5')
-    #wyciagniecie i zapisanie nowych danych piosenki
+    # overwrites neural network, so if you use it often results will be better
+    model.save("neural_network.h5")
     results = []
-    for i in range(len(X)):
-        prediction = model.predict(X_norm[i].reshape(1, 11))
+    for i in range(len(x)):
+        prediction = model.predict(x_norm[i].reshape(1, 11))
         results.append(prediction.tolist()[0])
-
 
     results_dict = {
         "tempo": round(np.mean([result[0] for result in results]), 3),
@@ -60,5 +104,5 @@ def neural():
         "popularity": int(round(np.mean([result[10] for result in results]), 0)),
     }
 
-    with open('results2.json', 'w') as f:
+    with open("results2.json", "w") as f:
         json.dump(results_dict, f, indent=2, ensure_ascii=False)

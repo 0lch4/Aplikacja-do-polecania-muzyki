@@ -1,10 +1,10 @@
-# Application for recommended music
+# Application for music recommendation
 
-![GitHub forks](https://img.shields.io/badge/Version-1.0-red)
+![GitHub forks](https://img.shields.io/badge/Version-1.0.0-red)
 
 # Description:
 
-The application finds songs with the similar sound performance based on data such as energy mood rate, etc. Application use a simple neural network and the Spotify API. It was built on the FastAPI framework.
+The application finds songs with the similar sound based on data such as energy mood rate, etc. Application use a simple neural network and the Spotify API. It was built on the FastAPI framework.
 
 ## License
 

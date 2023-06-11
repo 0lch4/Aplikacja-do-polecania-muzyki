@@ -2,21 +2,13 @@ FROM python:3.11
 
 WORKDIR /main
 
-COPY requirements.txt ./
-RUN pip install --no-cache-dir -r requirements.txt
+COPY ./ .
 
-COPY main.py ./
-COPY AI.py ./
-COPY song_analize.py ./
-COPY new_parameters.py ./
-COPY genres.txt ./
-COPY neural_network.h5 ./
-COPY conn.py ./
-COPY results.json ./
-COPY results2.json ./
-COPY static ./static
-COPY templates ./templates
+ENV PYTHONPATH=${PYTHONPATH}:${PWD} 
+RUN pip3 install poetry
+RUN poetry config virtualenvs.create false
+RUN poetry install
 
-EXPOSE 8000
+EXPOSE 3000
 
-CMD ["uvicorn", "main:app", "--proxy-headers", "--host", "0.0.0.0", "--port", "80"]
+CMD ["uvicorn", "app.main:app", "--proxy-headers", "--host", "0.0.0.0", "--port", "3000"]

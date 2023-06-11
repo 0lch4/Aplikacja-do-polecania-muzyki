@@ -1,6 +1,7 @@
 import requests
 import pytest
-from conn import conn
+from pathlib import Path
+from app.connection.conn import conn
 from fastapi.testclient import TestClient
 
 response = conn()
@@ -10,7 +11,8 @@ headers = {
     "Content-Type": "application/json",
 }
 
-with open("genres.txt") as f:
+file_path = Path("app/data/genres/genres.txt")
+with file_path.open(mode="r") as f:
     genres = [genre.strip().lower() for genre in f]
 
 
@@ -37,13 +39,13 @@ def test_recommendations(genre: str) -> None:
     )
     assert (
         response.status_code == 200
-    ), f"Nie udało się uzyskać wyników wyszukiwania dla gatunku {genre}. Kod statusu: {response.status_code}"
+    ), f"Genre not found: {genre}. Error: {response.status_code}"
     results = response.json()["tracks"]
-    assert len(results) > 0, f" {genre} nie jest gatunkiem obsługiwanym na spotify"
+    assert len(results) > 0, f" {genre} is not supported by Spotify"
 
 
 def test_submit_form() -> None:
-    from main import app
+    from app.main import app
 
     client = TestClient(app)
 
@@ -54,19 +56,19 @@ def test_submit_form() -> None:
     response2 = client.post(
         "/submit", data={"song": "alefwqjikekcqwja", "artist": "szpafqwlslwkqku"}
     )
-    assert "Nie ma takiego utworu na spotify" in response2.text
+    assert "This song does not exist on Spotify" in response2.text
 
     response3 = client.post("/submit", data={"song": "", "artist": "szpaku"})
-    assert "Musisz wprowadzić obie wartości" in response3.text
+    assert "You have to enter both values" in response3.text
 
 
 def test_submit_genres() -> None:
-    from main import app
+    from app.main import app
 
     client = TestClient(app)
 
     response = client.post("/genre", data={"genre": genres})
     assert response.status_code == 200
-    assert "Utwór" in response.text
-    assert "Wykonawca" in response.text
-    assert "Link do utworu" in response.text
+    assert "Song" in response.text
+    assert "Artist" in response.text
+    assert "Link to the song on Spotify" in response.text

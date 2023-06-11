@@ -3,16 +3,17 @@ from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from typing import Any
-from song_analize import get_song
+from pathlib import Path
+from app.recomendation.song_analize import get_song
 from fastapi.responses import JSONResponse
-from AI import neural
-from new_parameters import new_song
+from app.recomendation.neural import neural
+from app.recomendation.new_parameters import new_song
 
 app = FastAPI()
 
-templates = Jinja2Templates(directory="templates")
+templates = Jinja2Templates(directory="app/templates")
 
-app.mount("/static", StaticFiles(directory="static"), name="static")
+app.mount("/app/static", StaticFiles(directory="app/static"), name="static")
 
 
 # main site to enter artist and song name
@@ -27,7 +28,7 @@ async def submit_form(
     request: Request, song: str = Form(None), artist: str = Form(None)  # noqa: B008
 ) -> Any:
     if song is None or artist is None:
-        text = "Musisz wprowadzic obie wartosci"
+        text = "You have to enter both values"
         return templates.TemplateResponse(
             "main.html", {"request": request, "text": text}
         )
@@ -44,7 +45,8 @@ async def submit_form(
 # creating buttons with genres to choose
 @app.get("/genre")
 async def get_genres() -> JSONResponse:
-    with open("genres.txt", "r") as f:
+    file_path = Path("app/data/genres/genres.txt")
+    with file_path.open(mode= "r") as f:
         genres = f.read().splitlines()
     return JSONResponse(content=genres)
 

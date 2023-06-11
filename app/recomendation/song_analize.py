@@ -1,12 +1,12 @@
 import requests
 import json
-from conn import conn
-from typing import Literal
+from app.connection.conn import conn
+from pathlib import Path
 
 
 def get_song(
     title: str, artist: str
-) -> Literal["Nie ma takiego utworu na spotify", "Blad polaczenia"] | None:
+) -> str | None:
     response = conn()
     if response.status_code == 200:
         access_token = response.json()["access_token"]
@@ -18,23 +18,24 @@ def get_song(
             "Content-Type": "application/json",
         }
         response = requests.get(search_url, headers=headers)  # noqa: S113
-        # sprawdza czy piosenka istnieje na spotify
+
         if response.status_code == 200:
             data = response.json()
             if len(data["tracks"]["items"]) == 0:
-                return "Nie ma takiego utworu na spotify"
-            # wysyla żądanie o dane utworu
+                return "This song does not exist on Spotify"
+
             track_id = data["tracks"]["items"][0]["id"]
             features_url = f"https://api.spotify.com/v1/audio-features/{track_id}"
             popularity_url = f"https://api.spotify.com/v1/tracks/{track_id}"
             response = requests.get(features_url, headers=headers)  # noqa: S113
-            popularity_response = requests.get(
+            popularity_response = requests.get(  # noqa: S113
                 popularity_url, headers=headers
-            )  # noqa: S113, E501
-            # pobiera właściwości piosenki i zapisuje do pliku wynik2.json
+            )
+            #gets song parameters and saves it to json file
             data = response.json()
             popularity_data = popularity_response.json()
-            with open("results.json", "w", encoding="utf-8") as f:
+            file_path = Path("app/data/results/old_results.json")
+            with file_path.open(mode="w", encoding="utf-8") as f:
                 json.dump(
                     {
                         "tempo": data["tempo"],
@@ -55,6 +56,6 @@ def get_song(
                 )
                 return None
         else:
-            return "Nie ma takiego utworu na spotify"
+            return f"Can't get replay from Spotify:{response.status_code}"
     else:
-        return "Blad polaczenia"
+        return f"Can't connect to Spotify Error code:{response.status_code}"

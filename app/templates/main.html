@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Aplikacja do polecania muzyki</title>
+        <title>Application for recommending music</title>
         <link rel="stylesheet" href="{{ url_for('static', path='/css/main.css') }}">
     </head>
     <body>
         <form id ='form' action="/submit" method="post">
             <p>{{error}}</p>
             <p>{{text}}</p>
-            <label for="songd">Znajdz utwor o podobnym brzmieniu<br><br></label>
-            <label for="songs">Tutaj wpisz tytul</label><br>
+            <label for="songd">Find a song with a similar sound<br><br></label>
+            <label for="songs">song name</label><br>
             <input type="text" id="song" name="song"><br>
-            <label for="songs">Tutaj wpisz wykonawce</label><br>
+            <label for="songs">artist</label><br>
             <input type="text" id="artist" name="artist"><br>
-            <input type="submit" value="Wyslij">
+            <input type="submit" value="Send">
         </form>
     </body>
 </html>

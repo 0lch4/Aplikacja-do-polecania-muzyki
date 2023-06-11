@@ -1,47 +1,75 @@
-# Aplikacja-do-polecania-muzyki
+# Application for recommended music
 
-![GitHub forks](https://img.shields.io/badge/Version-2.1-red)
+![GitHub forks](https://img.shields.io/badge/Version-1.0-red)
 
-App interface and Readme in main branch are in Polish lang, to English version select branch eng-version
+# Description:
 
-instalacja bibliotek:
+The application finds songs with the similar sound performance based on data such as energy mood rate, etc. Application use a simple neural network and the Spotify API. It was built on the FastAPI framework.
 
-pip install -r requirements.txt
+## License
 
-Wymagane api keye znajdują się w pliku .env.example należy utworzyć plik .env i podać tam swoje klucze według wzoru
+Application is licensed under the MIT License.
 
-Opis:
-Znajduje piosenkę o podobnym brzmieniu na podstawie takich danych jak tempo nastrój energia itd
+# Instalation
 
-Plik main.py jest główną aplikacją, która korzysta z frameworka FastApi aby za pomocą Uvicorna uruchomić aplikację w przeglądarce, aby ją uruchomić należy wpisać uvicorn main:app --reload w terminalu, w lokalizacji gdzie znajduje się main.py.
+## Copying the repository
 
-Aplikacja song_analize pobiera od użytkownika nazwę oraz autora piosenki a nastęnie pobiera ze spotify i zapisuje informacje o piosence do pliku results.json
+```
+git clone https://github.com/0lch4/Aplikacja-do-polecania-muzyki.git
+```
+## Installing liblaries
 
-Aplikacja AI to prosta sieć neuronowa która pobiera parametry z results.json, przetwarza dane i zapisuje do pliku results2.json dane piosenki która według niej jest podobna do pobranej
+You have to use `poetry` to install liblaries:
 
-Aplikacja new_parameters pobiera dane z pliku results2.json, prosi użytkownika o wybranie gatunku piosenki z tych które znajdują się na liście, wysyła dane do spotify o wymaganiach utworu i następnie sciąga nam odpowiednią piosenkę
+```
+pip install poetry
+```
 
-Plik conn.py służy do łączenia się z API Spotify, gdy potrzebuje się połączyć ze Spotify to go importuje zamiast pisać w kółko to samo.
+In next step enter in main project location:
 
-Folder templates zawiera widoki html.
+```
+poetry install
+```
 
-Folder static zawiera pliki statyczne, są tam style, grafika, javascript i czcionka.
+## .env file
 
-Podany gatunek nie musi się równać gatunkowi piosenki którą podaliśmy wcześniej! Jeśli podamy inny gatunek to dostaniemy piosenkę brzmiącą podobnie do orginału w tym gatunku który podaliśmy na koniec.
+You have to create `.env` like `.env.example`
 
-Tests zawiera test który sprawdza czy gatunki na liscie gatunki.txt rzeczywiście istnieją na spotify. Jeśli brakuje tam twojego ulubionego można go dopisać a następnie uruchomić test. Oprócz tego są tam testy, które sprawdzają poprawne działanie endpointów
-  
-Aby zbudować obraz Docker zakładając, że Dockerfile znajduje się z resztą plików jak w repozytorium należy wpisać:
+`Spotify id` and `Spotify secret` you can get [here](https://developer.spotify.com/)
 
+# Usage
+
+When all dependencies are met, enter in the main location:
+
+```
+uvicorn app.main:app --reload
+```
+
+Application is avilable on:
+
+```
+http://localhost:8000/
+```
+
+## Running in Docker
+
+For build container enter in main location:
+
+```
 docker build -t app .
+```
 
-Następnie aby uruchomić kontener:
+In the next step enter in main location:
 
-docker run -d --name app -p 80:80 --env-file .env app  
+```
+docker run -d --name app -p 3000:3000 --env-file .env app 
+```
 
-Zakładając, że w pliku .env są prawidłowe wartości i znajduje się z resztą plików jak w repozytorium plik .env.example
+Application is avilable on:
 
-Teraz pod adresem http://127.0.0.1/ aplikacja jest dostępna w naszej przeglądarce
+```
+http://localhost:3000/
+```
 
 ![screen1](screenshots/screen1.png)
 ![screen2](screenshots/screen2.png)

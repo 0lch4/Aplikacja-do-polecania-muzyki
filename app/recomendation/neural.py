@@ -1,14 +1,14 @@
 import json
 import numpy as np
 import tensorflow as tf
+from pathlib import Path
 
-
+#neural network return similar results and write it to the file
 def neural() -> None:
-    # pobiera dane z pliku json
-    with open("results.json") as f:
+    file_path = Path("app/data/results/old_results.json")
+    with file_path.open(mode="r") as f:
         data = json.load(f)
-    model = tf.keras.models.load_model("neural_network.h5")
-    # dane wejsciowe
+    model = tf.keras.models.load_model("app/neural_network/neural_network.h5")
     x = np.array(
         [
             [
@@ -27,9 +27,8 @@ def neural() -> None:
             for i in range(len(data))
         ]
     )
-    # dane wyjsciowe maja byc zblizone do wejsciowych
     y = x.copy()
-    # minimalna i maksymalna roznica wartosci
+
     min_vals = np.array(
         [
             [
@@ -66,7 +65,7 @@ def neural() -> None:
             for i in range(len(data))
         ]
     )
-    # normalizacja danych
+
     a = 0
     b = 1
     min_vals += 0.001
@@ -84,7 +83,7 @@ def neural() -> None:
     model.fit(x_norm, y, epochs=120, batch_size=16)
 
     # overwrites neural network, so if you use it often results will be better
-    model.save("neural_network.h5")
+    model.save("app/neural_network/neural_network.h5")
     results = []
     for i in range(len(x)):
         prediction = model.predict(x_norm[i].reshape(1, 11))
@@ -103,6 +102,6 @@ def neural() -> None:
         "instrumentalness": int(round(np.mean([result[9] for result in results]), 0)),
         "popularity": int(round(np.mean([result[10] for result in results]), 0)),
     }
-
-    with open("results2.json", "w") as f:
+    file_path = Path("app/data/results/new_results.json")
+    with file_path.open(mode="w") as f:
         json.dump(results_dict, f, indent=2, ensure_ascii=False)

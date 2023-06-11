@@ -1,7 +1,8 @@
 import requests
 import json
-from conn import conn
+from app.connection.conn import conn
 from typing import Any
+from pathlib import Path
 
 
 def new_song(genre: str) -> Any:
@@ -9,7 +10,8 @@ def new_song(genre: str) -> Any:
     genre = genre.lower()
     if response.status_code == 200:
         access_token = response.json()["access_token"]
-        with open("results2.json") as f:
+        file_path = Path("app/data/results/new_results.json")
+        with file_path.open(mode="r") as f:
             new_data = json.load(f)
 
         tempo = new_data["tempo"]
@@ -28,7 +30,7 @@ def new_song(genre: str) -> Any:
             "Authorization": f"Bearer {access_token}",
             "Content-Type": "application/json",
         }
-
+        #trying find matching songs
         params = {
             "limit": 3,
             "market": "PL",
@@ -56,10 +58,10 @@ def new_song(genre: str) -> Any:
         if response.status_code == 200:
             results = response.json()["tracks"]
             if len(results) == 0:
-                return "Nie znaleziono utworów o podanych parametrach"
+                return "No songs matching for these parameters"
         else:
-            return "Błąd połączenia"
+            return f"Error: {response.status_code}"
     else:
-        return "Błąd połączenia"
+        return f"Error: {response.status_code}"
 
     return results

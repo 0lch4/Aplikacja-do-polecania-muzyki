@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "application for recommended music"
+version = "1.0.0"
+description = "The application finds songs with the similar sound performance based on data such as energy mood rate, etc. Application use a simple neural network and the Spotify API. It was built on the FastAPI framework."
+authors = ["0lch4 <127250399+0lch4@users.noreply.github.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.10,<=3.11.4"
+python-dotenv = "^1.0.0"
+numpy = "^1.23.5"
+tensorflow-io = "^0.31.0"
+requests = "^2.28.2"
+fastapi = "^0.95.1"
+uvicorn = "^0.22.0"
+python-multipart = "^0.0.6"
+tensorflow = "^2.12.0"
+jinja2 = "^3.1.2"
+httpx = "^0.24.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "7.3.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

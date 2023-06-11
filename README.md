@@ -71,6 +71,8 @@ Application is avilable on:
 http://localhost:3000/
 ```
 
+# Screenshots
+
 ![screen1](screenshots/screenshot1.png)
 ![screen2](screenshots/screenshot2.png)
 ![screen3](screenshots/screenshot3.png)

@@ -3,6 +3,22 @@ import numpy as np
 import tensorflow as tf
 from pathlib import Path
 
+PARAMETERS = (
+    "tempo",
+    "valence",
+    "loudness",
+    "energy",
+    "time_signature",
+    "danceability",
+    "speechiness",
+    "mode",
+    "key",
+    "instrumentalness",
+    "popularity",
+)
+
+OFFSETS = (5, 0.1, 1, 0.1, 0, 0.1, 0.05, 0, 0, 0.01, 1)
+
 
 # neural network return similar results and write it to the file
 def neural() -> None:
@@ -10,60 +26,24 @@ def neural() -> None:
     with file_path.open(mode="r") as f:
         data = json.load(f)
     model = tf.keras.models.load_model("app/neural_network/neural_network.h5")
+
     x = np.array(
         [
-            [
-                data["tempo"],
-                data["valence"],
-                data["loudness"],
-                data["energy"],
-                data["time_signature"],
-                data["danceability"],
-                data["speechiness"],
-                data["mode"],
-                data["key"],
-                data["instrumentalness"],
-                data["popularity"],
-            ]
-            for i in range(len(data))
+        [data[key] for key in PARAMETERS] for _ in range(len(data))
         ]
-    )
+        )
     y = x.copy()
 
     min_vals = np.array(
         [
-            [
-                data["tempo"] - 5,
-                data["valence"] - 0.1,
-                data["loudness"] - 1,
-                data["energy"] - 0.1,
-                data["time_signature"],
-                data["danceability"] - 0.1,
-                data["speechiness"] - 0.05,
-                data["mode"] - 0,
-                data["key"] - 0,
-                data["instrumentalness"] - 0.01,
-                data["popularity"] - 1,
-            ]
-            for i in range(len(data))
+        [data[key] - offset for key, offset in zip(PARAMETERS, OFFSETS)]
+        for _ in range(len(data))
         ]
     )
     max_vals = np.array(
         [
-            [
-                data["tempo"] + 5,
-                data["valence"] + 0.1,
-                data["loudness"] + 1,
-                data["energy"] + 0.1,
-                data["time_signature"],
-                data["danceability"] + 0.1,
-                data["speechiness"] + 0.05,
-                data["mode"] + 0,
-                data["key"] + 0,
-                data["instrumentalness"] + 0.01,
-                data["popularity"] + 1,
-            ]
-            for i in range(len(data))
+        [data[key] + offset for key, offset in zip(PARAMETERS, OFFSETS)]
+        for _ in range(len(data))
         ]
     )
 
@@ -86,23 +66,15 @@ def neural() -> None:
     # overwrites neural network, so if you use it often results will be better
     model.save("app/neural_network/neural_network.h5")
     results = []
-    for i in range(len(x)):
-        prediction = model.predict(x_norm[i].reshape(1, 11))
+    for _ in range(len(x)):
+        prediction = model.predict(x_norm[_].reshape(1, 11))
         results.append(prediction.tolist()[0])
 
     results_dict = {
-        "tempo": round(np.mean([result[0] for result in results]), 3),
-        "valence": round(np.mean([result[1] for result in results]), 3),
-        "loudness": round(np.mean([result[2] for result in results]), 3),
-        "energy": round(np.mean([result[3] for result in results]), 3),
-        "time_signature": int(round(np.mean([result[4] for result in results]), 0)),
-        "danceability": int(round(np.mean([result[5] for result in results]), 0)),
-        "speechiness": int(round(np.mean([result[6] for result in results]), 0)),
-        "mode": int(round(np.mean([result[7] for result in results]), 0)),
-        "key": int(round(np.mean([result[8] for result in results]), 0)),
-        "instrumentalness": int(round(np.mean([result[9] for result in results]), 0)),
-        "popularity": int(round(np.mean([result[10] for result in results]), 0)),
+        key: round(np.mean([r[i] for r in results]), 0 if i > 3 else 3)
+        for i, key in enumerate(PARAMETERS)
     }
+
     file_path = Path("app/data/results/new_results.json")
     with file_path.open(mode="w") as f:
         json.dump(results_dict, f, indent=2, ensure_ascii=False)

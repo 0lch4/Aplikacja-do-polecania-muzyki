@@ -46,7 +46,7 @@ async def submit_form(
 @app.get("/genre")
 async def get_genres() -> JSONResponse:
     file_path = Path("app/data/genres/genres.txt")
-    with file_path.open(mode= "r") as f:
+    with file_path.open(mode="r") as f:
         genres = f.read().splitlines()
     return JSONResponse(content=genres)
 

@@ -3,7 +3,8 @@ import numpy as np
 import tensorflow as tf
 from pathlib import Path
 
-#neural network return similar results and write it to the file
+
+# neural network return similar results and write it to the file
 def neural() -> None:
     file_path = Path("app/data/results/old_results.json")
     with file_path.open(mode="r") as f:

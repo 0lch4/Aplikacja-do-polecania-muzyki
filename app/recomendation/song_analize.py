@@ -4,9 +4,7 @@ from app.connection.conn import conn
 from pathlib import Path
 
 
-def get_song(
-    title: str, artist: str
-) -> str | None:
+def get_song(title: str, artist: str) -> str | None:
     response = conn()
     if response.status_code == 200:
         access_token = response.json()["access_token"]
@@ -31,7 +29,7 @@ def get_song(
             popularity_response = requests.get(  # noqa: S113
                 popularity_url, headers=headers
             )
-            #gets song parameters and saves it to json file
+            # gets song parameters and saves it to json file
             data = response.json()
             popularity_data = popularity_response.json()
             file_path = Path("app/data/results/old_results.json")

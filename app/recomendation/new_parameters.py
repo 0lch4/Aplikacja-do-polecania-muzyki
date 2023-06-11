@@ -30,7 +30,7 @@ def new_song(genre: str) -> Any:
             "Authorization": f"Bearer {access_token}",
             "Content-Type": "application/json",
         }
-        #trying find matching songs
+        # trying find matching songs
         params = {
             "limit": 3,
             "market": "PL",

@@ -4,7 +4,8 @@ import os
 from dotenv import load_dotenv
 from requests.models import Response
 
-#connects to spotify api
+
+# connects to spotify api
 def conn() -> Response:
     load_dotenv()
     client_id = os.getenv("SPOTIFY_ID")

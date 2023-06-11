@@ -51,7 +51,7 @@ def test_submit_form() -> None:
 
     response = client.post("/submit", data={"song": "alicja", "artist": "szpaku"})
     assert response.status_code == 200
-    assert "genres.html" in response.template.name # type: ignore
+    assert "genres.html" in response.template.name  # type: ignore
 
     response2 = client.post(
         "/submit", data={"song": "alefwqjikekcqwja", "artist": "szpafqwlslwkqku"}

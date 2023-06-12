@@ -17,7 +17,8 @@ PARAMETERS = (
     "popularity",
 )
 
-OFFSETS = (5, 0.1, 1, 0.1, 0, 0.1, 0.05, 0, 0, 0.01, 1)
+
+DIFFRENCE_LIMIT = (5, 0.1, 1, 0.1, 0, 0.1, 0.05, 0, 0, 0.01, 1)
 
 
 # neural network return similar results and write it to the file
@@ -26,24 +27,24 @@ def neural() -> None:
     with file_path.open(mode="r") as f:
         data = json.load(f)
     model = tf.keras.models.load_model("app/neural_network/neural_network.h5")
-
-    x = np.array(
-        [
-        [data[key] for key in PARAMETERS] for _ in range(len(data))
-        ]
-        )
+    # old song parameters
+    x = np.array([[data[key] for key in PARAMETERS] for _ in range(len(data))])
+    # expected data (similar so i copy x)
     y = x.copy()
 
+    # min data values
     min_vals = np.array(
         [
-        [data[key] - offset for key, offset in zip(PARAMETERS, OFFSETS)]
-        for _ in range(len(data))
+            [data[key] - offset for key, offset in zip(PARAMETERS, DIFFRENCE_LIMIT)]
+            for _ in range(len(data))
         ]
     )
+
+    # max data values
     max_vals = np.array(
         [
-        [data[key] + offset for key, offset in zip(PARAMETERS, OFFSETS)]
-        for _ in range(len(data))
+            [data[key] + offset for key, offset in zip(PARAMETERS, DIFFRENCE_LIMIT)]
+            for _ in range(len(data))
         ]
     )
 
@@ -71,7 +72,7 @@ def neural() -> None:
         results.append(prediction.tolist()[0])
 
     results_dict = {
-        key: round(np.mean([r[i] for r in results]), 0 if i > 3 else 3)
+        key: round(np.mean([r[i] for r in results]), None if i > 3 else 3)
         for i, key in enumerate(PARAMETERS)
     }
 

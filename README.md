@@ -13,7 +13,7 @@ Application is licensed under the MIT License.
 ## Copying the repository
 
 ```
-git clone https://github.com/0lch4/Aplikacja-do-polecania-muzyki.git
+git clone https://github.com/0lch4/Application_for_music_recommendation.git
 ```
 ## Installing liblaries
 

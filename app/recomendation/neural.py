@@ -8,9 +8,9 @@ PARAMETERS = (
     "valence",
     "loudness",
     "energy",
-    "time_signature",
     "danceability",
     "speechiness",
+    "time_signature",
     "mode",
     "key",
     "instrumentalness",
@@ -18,7 +18,7 @@ PARAMETERS = (
 )
 
 
-DIFFRENCE_LIMIT = (5, 0.1, 1, 0.1, 0, 0.1, 0.05, 0, 0, 0.01, 1)
+DIFFRENCE_LIMIT = (5, 0.1, 1, 0.1, 0.1, 0.05, 0, 0, 0, 0.01, 1)
 
 
 # neural network return similar results and write it to the file
@@ -71,9 +71,10 @@ def neural() -> None:
         prediction = model.predict(x_norm[_].reshape(1, 11))
         results.append(prediction.tolist()[0])
 
+    #creates dict with new parameters, first 6 are in float x.xxx format, rest in int format  # noqa: E501
     results_dict = {
-        key: round(np.mean([r[i] for r in results]), None if i > 3 else 3)
-        for i, key in enumerate(PARAMETERS)
+        key: round(np.mean([result[place] for result in results]), None if place > 5 else 3)  # noqa: E501
+        for place, key in enumerate(PARAMETERS)
     }
 
     file_path = Path("app/data/results/new_results.json")

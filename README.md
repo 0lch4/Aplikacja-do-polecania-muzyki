@@ -1,4 +1,4 @@
-# Application for music recommendation ![GitHub forks](https://img.shields.io/badge/Version-1.0.3-red)
+# Application for music recommendation ![GitHub forks](https://img.shields.io/badge/Version-1.1.0-red)
 
 # Description:
 

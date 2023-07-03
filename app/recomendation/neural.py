@@ -71,9 +71,11 @@ def neural() -> None:
         prediction = model.predict(x_norm[_].reshape(1, 11))
         results.append(prediction.tolist()[0])
 
-    #creates dict with new parameters, first 6 are in float x.xxx format, rest in int format  # noqa: E501
+    # creates dict with new parameters, first 6 are in float x.xxx format, rest in int format  # noqa: E501
     results_dict = {
-        key: round(np.mean([result[place] for result in results]), None if place > 5 else 3)  # noqa: E501
+        key: round(
+            np.mean([result[place] for result in results]), None if place > 5 else 3
+        )  # noqa: E501
         for place, key in enumerate(PARAMETERS)
     }
 

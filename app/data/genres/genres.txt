@@ -5,6 +5,7 @@ alternative
 ambient
 anime
 black-metal
+bluegrass
 blues
 bossanova
 brazil
@@ -50,7 +51,11 @@ hardcore
 hip-hop
 house
 indie
+industrial
 jazz
+j-pop
+latin
+k-pop
 metal
 pop
 power-pop
@@ -61,9 +66,11 @@ reggaeton
 rock
 rock-n-roll
 samba
+salsa
 ska
 soul
 synth-pop
+tango
 techno
 trance
 trip-hop

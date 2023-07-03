@@ -12,7 +12,14 @@
                 <input type="hidden" id="clickedGenre" name="genre">
             </form>
         </div>
-        <script src="app/static/scripts/script.js"></script> <br>
+        <script src="app/static/scripts/buttons.js"></script> <br>
+        <script src="app/static/scripts/lights.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                initializeLights(100);
+            });
+        </script>
         <a href="/">I want to change the song</a>
+        <div id="lights-container"></div>
     </body>
 </html>

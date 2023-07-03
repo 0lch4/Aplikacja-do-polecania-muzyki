@@ -7,6 +7,7 @@ fetch('/genre')
             button.type = 'submit';
             button.name = 'genre';
             button.value = genre;
+            button.classList.add('genre-button');
             
             genreButtonsDiv.appendChild(button);
             button.addEventListener('click', function(event) {

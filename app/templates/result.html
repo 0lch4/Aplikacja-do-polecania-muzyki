@@ -7,27 +7,34 @@
     <body>
         <h2>Here are selected songs</h2>
         <div id='first_place'>
-            <h4>First place</h4>
-            <p>Song <span class="arial-font">{{ results[0]['name'] }}</p>
-            <p>Artist <span class="arial-font"> {{ results[0]['artists'][0]['name'] }}</p>
+            <h3>First place</h3>
+            <p>Song: <span class="results">{{ results[0]['name'] }}</p>
+            <p>Artist: <span class="results"> {{ results[0]['artists'][0]['name'] }}</p>
             <p><a href="{{ results[0]['external_urls']['spotify'] }}" target="_blank">Link to the song on Spotify</a></p>
         </div>
         <div id='second_place'>
-            <h4>Second place</h4>
-            <p>Song <span class="arial-font">{{ results[1]['name'] }}</p>
-            <p>Artist <span class="arial-font">{{ results[1]['artists'][0]['name'] }}</p>
+            <h3>Second place</h3>
+            <p>Song: <span class="results">{{ results[1]['name'] }}</p>
+            <p>Artist: <span class="results">{{ results[1]['artists'][0]['name'] }}</p>
             <p><a href="{{ results[1]['external_urls']['spotify'] }}" target="_blank">Link to the song on Spotify</a></p>
         </div>
         <div id='third_place'>
-            <h4>Third place</h4>
-            <p>Song <span class="arial-font">{{ results[2]['name'] }}</p>
-            <p>Artist <span class="arial-font">{{ results[2]['artists'][0]['name'] }}</p>
+            <h3>Third place</h3>
+            <p>Song: <span class="results">{{ results[2]['name'] }}</p>
+            <p>Artist: <span class="results">{{ results[2]['artists'][0]['name'] }}</p>
             <p><a href="{{ results[2]['external_urls']['spotify'] }}" target="_blank">Link to the song on Spotify</a></p>
         </div>    
         <script src="app/static/scripts/back.js"></script> <br>
         <div id="link">
-            <a href="/">Change the song</a><br>
+            <a href="/">Change the song</a><br><br>
             <a href="#" onclick="goBack()">Change the genre</a>
+            <script src="app/static/scripts/lights.js"></script>
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    initializeLights(100);
+                });
+            </script>
+        <div id="lights-container"></div>
         </div>
     </body>
 </html>

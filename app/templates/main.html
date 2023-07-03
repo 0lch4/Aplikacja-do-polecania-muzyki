@@ -6,14 +6,22 @@
     </head>
     <body>
         <form id ='form' action="/submit" method="post">
+            <br><br>
             <p>{{error}}</p>
             <p>{{text}}</p>
             <label for="songd">Find a song with a similar sound<br><br></label>
-            <label for="songs">song name</label><br>
-            <input type="text" id="song" name="song"><br>
-            <label for="songs">artist</label><br>
-            <input type="text" id="artist" name="artist"><br>
-            <input type="submit" value="Send">
+            <label for="songs">Song name</label><br>
+            <input type="text" id="song" name="song"><br><br>
+            <label for="songs">Artist</label><br>
+            <input type="text" id="artist" name="artist"><br><br>
+            <button><input type="submit" value="Send"></button>
         </form>
+        <script src="app/static/scripts/lights.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                initializeLights(50);
+            });
+        </script>
+        <div id="lights-container"></div>
     </body>
 </html>

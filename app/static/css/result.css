@@ -1,6 +1,11 @@
 @font-face {
     font-family: 'Music-font';
-    src: url('../font/Caribbean.ttf');
+    src: url('../font/Lato-Regular.ttf');
+}
+
+@font-face {
+        font-family: 'Big-Music-font';
+        src: url('../font/Lato-Black.ttf');
   }
 
 body {
@@ -11,19 +16,31 @@ body {
     font-family: 'Music-font';
     font-size: 2vw;
     -webkit-text-stroke: 0.1px black;}
-
+    
+@keyframes text-floating-animation {
+        0% { color:rgb(17, 137, 23); }
+        50% { color: green; }
+        100% { color:rgb(17, 137, 23); }
+      }
+      
 
 h2 {
     text-align: center;
+    font-family: 'Big-Music-font';
+    animation: text-floating-animation 2s infinite;
     }
 
-h4{
+h3{
     text-align: center;
+    font-family: 'Big-Music-font';
+    animation: text-floating-animation 2s infinite;
 }
 
 p{
     text-align: center;
     -webkit-text-stroke: 0.1px black;
+    font-family: 'Big-Music-font';
+    font-size: 34px;
 }
 
 #first_place{
@@ -52,16 +69,47 @@ p{
     margin-right: 37%;
 }
 
-.arial-font {
-    font-family: Arial, sans-serif;
-    -webkit-text-stroke: 1px black;
-    
-}
 
 #back{
     text-align: center;
 }
 
-a:visited {
+a {
     color: blue;
+    text-decoration: none;
+    font-family: 'Music-font';
+    transition: text-decoration 0.3s ease;
+  }
+  
+a:hover {
+    text-decoration: underline;
+  }
+
+.results{
+    font-family: 'Music-font', sans-serif;
+}
+
+@keyframes floating {
+    0% {
+      transform: translateX(-50%) translateY(0);
+      opacity: 0.4;
+      box-shadow: 0 0 15px rgb(164, 244, 168), 0 0 35px rgb(164, 244, 168);
+    }
+    100% {
+      transform: translateX(-50%) translateY(-100vh);
+      opacity: 0.8;
+      box-shadow: 0 0 5px rgb(164, 244, 168), 0 0 5px rgb(164, 244, 168), 0 0 50px rgb(164, 244, 168), 0 0 100px rgb(164, 244, 168), 0 0 200px rgb(164, 244, 168);
+    }
+  }
+  
+.light {
+    position: fixed;
+    top: 100%;
+    left: 0;
+    transform: translateX(-50%);
+    width: 10px;
+    height: 10px;
+    background-color: rgba(164, 244, 168, 0.4);
+    border-radius: 50%;
+    animation: floating 5s linear infinite;
   }
